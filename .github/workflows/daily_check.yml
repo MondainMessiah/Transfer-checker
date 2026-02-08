@@ -1,0 +1,25 @@
+name: Tibia Transfer Check
+
+on:
+  schedule:
+    # 10:30 AM UTC is '30 10 * * *'
+    - cron: '30 10 * * *'
+  workflow_dispatch: # Allows you to run it manually for testing
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run tracker
+        run: python tibia_bot.py
